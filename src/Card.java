@@ -1,19 +1,14 @@
 public class Card {
-    private final int value;
+    private final Value value; //need to make sure this is immutable.
     private final Shape shape; //need to make sure this is immutable.
-    private final String valuename;
-    Card(int value,Shape shape){ //maybe add check to see if 1<=value<=13
+    Card(Value value,Shape shape){ //need to check somewhere that 1<=value<=13
         this.value = value;
         this.shape = shape;
-        if(value<=10){
-            this.valuename=Integer.toString(value);
-        }
-        else
     }
-    public int getValue() {return this.value;}
+    public Value getValue() {return this.value;}
     public Shape getShape() {return this.shape;}
     public int compare(Card other){
-        int result = (this.value - other.value);
+        int result = (this.value.getValue() - other.value.getValue());
         if (result!=0){
             result= result/java.lang.Math.abs(result);
         }
