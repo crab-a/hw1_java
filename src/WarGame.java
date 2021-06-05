@@ -3,6 +3,7 @@ public class WarGame {
     private Player player2;
     private Deck openDeckPlayer1;
     private Deck openDeckPlayer2;
+    private Card current;
     public WarGame(String nameA, String nameB){
         String firstPlayer = nameA;
         String secondPlayer = nameB;
@@ -58,5 +59,24 @@ public class WarGame {
             dealCards(player1);
         else
             dealCards(player2);
+    }
+    private void dealCards(Player winner){
+    }
+    private boolean play(Player player){
+        if(player.playDeck.isEmpty()){
+            if(player.winDeck.isEmpty()){
+                return false;
+            }
+            player.winDeck.shuffle();
+            Deck tempDeck = new Deck(false);
+            while(!player.winDeck.isEmpty()){
+                tempDeck.addCard(player.winDeck.removeTopCard());
+            }
+            while(!tempDeck.isEmpty()){
+                player.playDeck.addCard(player.winDeck.removeTopCard());
+            }
+        }
+        this.current = player1.playDeck.removeTopCard();
+        return true;
     }
 }
