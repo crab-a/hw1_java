@@ -4,10 +4,11 @@ public class WarGame {
     private Deck openDeckPlayer1;
     private Deck openDeckPlayer2;
     private Card current;
-    public WarGame(String nameA, String nameB){
+
+    public WarGame(String nameA, String nameB) {
         String firstPlayer = nameA;
         String secondPlayer = nameB;
-        if(nameA.compareTo(nameB) > 0){
+        if (nameA.compareTo(nameB) > 0) {
             firstPlayer = nameB;
             secondPlayer = nameA;
         }
@@ -16,50 +17,45 @@ public class WarGame {
         openDeckPlayer1 = new Deck(false);
         openDeckPlayer2 = new Deck(false);
     }
-    public void initializeGame(){
+
+    public void initializeGame() {
         Deck initDeck = new Deck(true);
         initDeck.shuffle();
         int counter = 0;
-        while (!initDeck.isEmpty()){
+        while (!initDeck.isEmpty()) {
             Player[] playerArr = {player1, player2};
-            playerArr[counter%2].addPlayDeck(initDeck.removeTopCard());
+            playerArr[counter % 2].addPlayDeck(initDeck.removeTopCard());
             counter++;
         }
     }
-    public String start(){
+
+    public String start() {
         initializeGame();
-
+        while (round());
     }
-    public void round(){
-        if(play(player1)) openDeckPlayer1.addCard(this.current);
-        else gameOver();
-        if(play(player2)) openDeckPlayer2.addCard(this.current);
-        else gameOver();
-        dealCards();
-        else
-            if(war()) dealCards();
-            else gameOver();
 
+    public boolean round() {
+        if (play(player1)) openDeckPlayer1.addCard(this.current);
+        else return false;
+        if (play(player2)) openDeckPlayer2.addCard(this.current);
+        else return false;
+        if (dealCards()) ;
+        else if (war()) ;
+        else return false;
+        return true;
+    }
+    public boolean war(){
+        for(int i=0; i<3; i++) {
+            if (play(player1)) openDeckPlayer1.addCard(this.current);
+            else return false;
+            if (play(player2)) openDeckPlayer2.addCard(this.current);
+            else return false;
         }
-
+        if (dealCards()) return true;
+        else if(war()) return true;
+        else return false;
     }
-    public void war(Card firstCard, Card secondCard){
-        openDeckPlayer1.addCard(firstCard);
-        openDeckPlayer2.addCard(secondCard);
-        for(int i=0; i<2; i++){
-            openDeckPlayer1.addCard(player1.playDeck.removeTopCard());
-            openDeckPlayer2.addCard(player2.playDeck.removeTopCard());
-        }
-        Card warCard1 = player1.playDeck.removeTopCard();
-        Card warCard2 = player2.playDeck.removeTopCard();
-        if(warCard1.getValue() > warCard2.getValue())
-            dealCards(player1);
-        else if(warCard1.getValue() < warCard2.getValue())
-            dealCards(player2);
-        else
-            war(warCard1, warCard2);
-    }
-    private void dealCards(Player winner){
+    private void dealCards(Player){
     }
     private boolean play(Player player){
         if(player.playDeck.isEmpty()){
