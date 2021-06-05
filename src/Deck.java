@@ -1,2 +1,3 @@
-public class Deck (boolean makedeck){
+public class Deck {
+
 }
