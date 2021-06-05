@@ -30,6 +30,33 @@ public class WarGame {
 
     }
     public void round(){
+        Card firstCard = player1.playDeck.removeTopCard();
+        Card secondCard = player2.playDeck.removeTopCard();
+        if(firstCard.getValue() > secondCard.getValue()){
+            player1.winDeck.addCard(secondCard);
+            player1.winDeck.addCard(firstCard);
+        }
+        else if(firstCard.getValue() < secondCard.getValue()){
+            player2.winDeck.addCard(secondCard);
+            player2.winDeck.addCard(firstCard);
+        }
+        else{
 
+        }
+
+    }
+    public void war(Card firstCard, Card secondCard){
+        openDeckPlayer1.addCard(firstCard);
+        openDeckPlayer2.addCard(secondCard);
+        for(int i=0; i<2; i++){
+            openDeckPlayer1.addCard(player1.playDeck.removeTopCard());
+            openDeckPlayer2.addCard(player2.playDeck.removeTopCard());
+        }
+        Card warCard1 = player1.playDeck.removeTopCard();
+        Card warCard2 = player2.playDeck.removeTopCard();
+        if(warCard1.getValue() > warCard2.getValue())
+            dealCards(player1);
+        else
+            dealCards(player2);
     }
 }

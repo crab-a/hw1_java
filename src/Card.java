@@ -7,8 +7,8 @@ public class Card {
         this.shape = shape;
     }
 
-    public Value getValue() {
-        return this.value;
+    public int getValue() {
+        return this.value.getValue();
     }
 
     public Shape getShape() {
