@@ -55,22 +55,6 @@ public class WarGame {
         else if(war()) return true;
         else return false;
     }
-    public void war(Card firstCard, Card secondCard){
-        openDeckPlayer1.addCard(firstCard);
-        openDeckPlayer2.addCard(secondCard);
-        for(int i=0; i<2; i++){
-            openDeckPlayer1.addCard(player1.playDeck.removeTopCard());
-            openDeckPlayer2.addCard(player2.playDeck.removeTopCard());
-        }
-        Card warCard1 = player1.playDeck.removeTopCard();
-        Card warCard2 = player2.playDeck.removeTopCard();
-        if(warCard1.getValue() > warCard2.getValue())
-            dealCards();
-        else if(warCard1.getValue() < warCard2.getValue())
-            dealCards();
-        else
-            war(warCard1, warCard2);
-    }
     private boolean dealCards(){
         int firstCard=openDeckPlayer1.getTopCard().getValue();
         int secondCard=openDeckPlayer2.getTopCard().getValue();
@@ -106,5 +90,10 @@ public class WarGame {
         }
         this.current = player1.playDeck.removeTopCard();
         return true;
+    }
+    private String whoIsTheWinner(){
+        if(player1.outOfCards())
+            return player2.getName();
+        else return player1.getName();
     }
 }

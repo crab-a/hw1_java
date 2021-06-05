@@ -8,7 +8,9 @@ public class Player {
         this.playDeck = new Deck(false);
         this.winDeck = new Deck(false);
     }
-
+    public String getName(){
+        return this.name;
+    }
     public void addPlayDeck(Card card) {
         this.playDeck.addCard(card);
     }
