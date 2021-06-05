@@ -1,5 +1,5 @@
 public class Player {
-    private String name;
+    private final String name;
     public Deck playDeck;
     public Deck winDeck;
 

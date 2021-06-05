@@ -16,7 +16,7 @@ public class Card {
     }
 
     public int compare(Card other) {
-        int result = (this.value.getValue() - other.value.getValue());
+        int result = (this.getValue() - other.getValue());
         if (result != 0) {
             result = result / java.lang.Math.abs(result);
         }

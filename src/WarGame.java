@@ -1,6 +1,6 @@
 public class WarGame {
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
     private Deck openDeckPlayer1;
     private Deck openDeckPlayer2;
     private Card current;
@@ -30,50 +30,71 @@ public class WarGame {
     }
 
     public String start() {
+        System.out.println("Initializing the game...");
         initializeGame();
-        while (round());
+        int roundCounter=0;
+        do {
+            System.out.println("-------------------------"+(roundCounter++)+"-------------------------");
+
+        }while (round(false));
         return whoIsTheWinner();
     }
 
-    public boolean round() {
-        if (play(player1)) openDeckPlayer1.addCard(this.current);
+    public boolean round(boolean isWar) {
+        if (play(player1)){
+            System.out.println(player1+" drew " +this.current);
+            openDeckPlayer1.addCard(this.current);
+        }
         else return false;
-        if (play(player2)) openDeckPlayer2.addCard(this.current);
+        if (play(player2)){
+            System.out.println(player2+" drew " +this.current);
+            openDeckPlayer2.addCard(this.current);
+        }
         else return false;
-        if (dealCards()) ;
+        if (dealCards(isWar)) ;
         else if (war()) ;
         else return false;
         return true;
     }
     public boolean war(){
-        for(int i=0; i<3; i++) {
-            if (play(player1)) openDeckPlayer1.addCard(this.current);
+        System.out.println("Starting a war...");
+        for(int i=0; i<2; i++) {
+            if (play(player1)){
+                System.out.println(player1 +" drew a war card");
+                openDeckPlayer1.addCard(this.current);
+            }
             else return false;
-            if (play(player2)) openDeckPlayer2.addCard(this.current);
+            if (play(player2)){
+                System.out.println(player2 +" drew a war card");
+                openDeckPlayer2.addCard(this.current);
+            }
             else return false;
         }
-        if (dealCards()) return true;
-        else if(war()) return true;
-        else return false;
+        return round(true);
     }
-    private boolean dealCards(){
-        int firstCard=openDeckPlayer1.getTopCard().getValue();
-        int secondCard=openDeckPlayer2.getTopCard().getValue();
-        if (firstCard>secondCard){
-            while (!openDeckPlayer1.isEmpty()){
-                player1.addWinDeck(openDeckPlayer1.removeTopCard());
-                player1.addWinDeck(openDeckPlayer2.removeTopCard());
-            }
-            return true;
+    private boolean dealCards(boolean isWar){
+        int winner = openDeckPlayer1.getTopCard().compare(openDeckPlayer2.getTopCard());
+        switch (winner){
+            case 1:
+                System.out.print(player1+" won");
+                while (!openDeckPlayer1.isEmpty()){
+                    player1.addWinDeck(openDeckPlayer1.removeTopCard());
+                    player1.addWinDeck(openDeckPlayer2.removeTopCard());
+                }
+                break;
+            case -1:
+                System.out.print(player2+" won");
+                while (!openDeckPlayer1.isEmpty()) {
+                    player2.addWinDeck(openDeckPlayer1.removeTopCard());
+                    player2.addWinDeck(openDeckPlayer2.removeTopCard());
+                }
+                break;
+            default:
+                return false;
         }
-        if (firstCard<secondCard) {
-            while (!openDeckPlayer1.isEmpty()) {
-                player2.addWinDeck(openDeckPlayer1.removeTopCard());
-                player2.addWinDeck(openDeckPlayer2.removeTopCard());
-            }
-            return true;
-        }
-        return false;
+        if (isWar) System.out.println(" the war");
+        else System.out.println();
+        return true;
     }
     private boolean play(Player player){
         if(player.playDeck.isEmpty()){
@@ -86,7 +107,7 @@ public class WarGame {
                 tempDeck.addCard(player.winDeck.removeTopCard());
             }
             while(!tempDeck.isEmpty()){
-                player.playDeck.addCard(player.winDeck.removeTopCard());
+                player.addPlayDeck(tempDeck.removeTopCard());
             }
         }
         this.current = player.drawCard();
