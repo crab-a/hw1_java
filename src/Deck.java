@@ -15,6 +15,9 @@ public class Deck {
             this.lastCardIndex = -1;
         }
     }
+    public Card getTopCard(){
+        return this.deck.get(lastCardIndex);
+    }
 
     void addCard(Card card) {
         this.deck.add(card);
