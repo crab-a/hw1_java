@@ -32,6 +32,7 @@ public class WarGame {
     public String start() {
         initializeGame();
         while (round());
+        return whoIsTheWinner();
     }
 
     public boolean round() {
@@ -60,15 +61,15 @@ public class WarGame {
         int secondCard=openDeckPlayer2.getTopCard().getValue();
         if (firstCard>secondCard){
             while (!openDeckPlayer1.isEmpty()){
-                player1.winDeck.addCard(openDeckPlayer1.removeTopCard());
-                player1.winDeck.addCard(openDeckPlayer2.removeTopCard());
+                player1.addWinDeck(openDeckPlayer1.removeTopCard());
+                player1.addWinDeck(openDeckPlayer2.removeTopCard());
             }
             return true;
         }
         if (firstCard<secondCard) {
             while (!openDeckPlayer1.isEmpty()) {
-                player2.winDeck.addCard(openDeckPlayer1.removeTopCard());
-                player2.winDeck.addCard(openDeckPlayer2.removeTopCard());
+                player2.addWinDeck(openDeckPlayer1.removeTopCard());
+                player2.addWinDeck(openDeckPlayer2.removeTopCard());
             }
             return true;
         }
@@ -88,7 +89,7 @@ public class WarGame {
                 player.playDeck.addCard(player.winDeck.removeTopCard());
             }
         }
-        this.current = player1.playDeck.removeTopCard();
+        this.current = player.drawCard();
         return true;
     }
     private String whoIsTheWinner(){
