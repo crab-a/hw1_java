@@ -16,5 +16,6 @@ public class Player {
     public Card drawCard(){
         return this.playDeck.removeTopCard();
     }
-
+    public boolean outOfCards(){return ( this.playDeck.isEmpty() && this.winDeck.isEmpty() ); }
+    public  String toString(){ return this.name; }
 }
