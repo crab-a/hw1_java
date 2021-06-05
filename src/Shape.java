@@ -3,10 +3,15 @@ public enum Shape {
     DIAMONDS("♦"),
     CLUBS("♣"),
     HEARTS("♥");
-    Shape(String shape){
+
+    Shape(String shape) {
         this.shape = shape;
     }
+
     private final String shape;
+
     @Override
-    public String toString() {return this.shape;}
+    public String toString() {
+        return this.shape;
+    }
 }
