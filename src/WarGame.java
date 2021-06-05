@@ -4,8 +4,14 @@ public class WarGame {
     private Deck openDeckPlayer1;
     private Deck openDeckPlayer2;
     public WarGame(String nameA, String nameB){
-        player1 = new Player(name1);
-        player2 = new Player(name2);
+        String firstPlayer = nameA;
+        String secondPlayer = nameB;
+        if(nameA.compareTo(nameB) > 0){
+            firstPlayer = nameB;
+            secondPlayer = nameA;
+        }
+        player1 = new Player(firstPlayer);
+        player2 = new Player(secondPlayer);
         openDeckPlayer1 = new Deck(false);
         openDeckPlayer2 = new Deck(false);
     }
