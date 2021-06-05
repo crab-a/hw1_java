@@ -10,20 +10,29 @@ public class Deck {
                     addCard(new Card(value, shape));//change to add card
                 }
             }
-            this.lastCardIndex=this.deck.size()-1;
         }
+        else{ this.lastCardIndex=-1; }
     }
-    void addCard(Card card){ deck.add(card); }
+    void addCard(Card card){
+        this.deck.add(card);
+        this.lastCardIndex++;
+    }
 
     Card removeTopCard(){
-        Card topCard = this.deck.get(deck.size()-1);
+        Card topCard = this.deck.get(lastCardIndex);
         this.deck.remove(this.lastCardIndex--);
         return  topCard;
     }
 
-    boolean isEmpty(){ return this.lastCardIndex!=0; }
+    boolean isEmpty(){ return this.lastCardIndex<0; }
 
     void shuffle(){
+        for(int i=0; i<50; i++){
+            int first = Main.rnd.nextInt(), sec=Main.rnd.nextInt();
+            Card temp =this.deck.get(first);
+            this.deck.set(first,this.deck.get(sec));
+            this.deck.set(sec,temp);
+        }
 
     }
 }
