@@ -36,7 +36,7 @@ public class Deck {
 
     void shuffle() {
         for (int i = 0; i < 50; i++) {
-            int first = Main.rnd.nextInt(this.lastCardIndex), sec = Main.rnd.nextInt(this.lastCardIndex);
+            int first = Main.rnd.nextInt(this.lastCardIndex+1), sec = Main.rnd.nextInt(this.lastCardIndex+1);
             Card temp = this.deck.get(first);
             this.deck.set(first, this.deck.get(sec));
             this.deck.set(sec, temp);

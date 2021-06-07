@@ -32,9 +32,9 @@ public class WarGame {
     public String start() {
         System.out.println("Initializing the game...");
         initializeGame();
-        int roundCounter=0;
+        int roundCounter=1;
         do {
-            System.out.println("-------------------------"+(roundCounter++)+"-------------------------");
+            System.out.println("------------------------- Round number "+(roundCounter++)+" -------------------------");
 
         }while (round(false));
         return whoIsTheWinner();
