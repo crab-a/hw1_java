@@ -1,4 +1,7 @@
 public enum Shape {
+    /**
+     * the four suits of poker Cards, returns the shape of the card
+     */
     SPADES("♠"),
     DIAMONDS("♦"),
     CLUBS("♣"),

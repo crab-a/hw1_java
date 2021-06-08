@@ -1,11 +1,20 @@
 import java.util.*;
 
 public class Deck {
-    public List<Card> deck;
+    /**
+     * container for playing cards, each deck have Cards or is empty.
+     */
+    List<Card> deck;
+    private static final int TIMES_TO_SHUFFLE=50;
     private int lastCardIndex=0;
 
     public Deck(boolean makeDeck) {
-        this.deck=new ArrayList<Card>();
+        /*
+         * create a deck of Cards
+         * @param makeDeck if false the constructor makes an empty deck
+         *                 if true build full suite of cards.
+         */
+        this.deck=new ArrayList<>();
         if (makeDeck) {
             for (Shape shape : Shape.values()) {
                 for (Value value : Value.values()) {
@@ -15,7 +24,7 @@ public class Deck {
         }
         this.lastCardIndex--;
     }
-    public Card getTopCard(){
+    Card getTopCard(){
         return this.deck.get(lastCardIndex);
     }
 
@@ -35,7 +44,7 @@ public class Deck {
     }
 
     void shuffle() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < TIMES_TO_SHUFFLE; i++) {
             int first = Main.rnd.nextInt(this.lastCardIndex+1), sec = Main.rnd.nextInt(this.lastCardIndex+1);
             Card temp = this.deck.get(first);
             this.deck.set(first, this.deck.get(sec));

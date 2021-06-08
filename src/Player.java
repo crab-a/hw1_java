@@ -9,7 +9,7 @@ public class Player {
     public Deck winDeck;
 
     public Player(String name) {
-        /**
+        /*
          * constructs the object player with name, play deck and win deck
          * @param: name: the name of the player
          */
@@ -18,13 +18,13 @@ public class Player {
         this.winDeck = new Deck(false);
     }
     public String getName(){
-        /**
+        /*
          * returns the name of the player
          */
         return this.name;
     }
     public void addPlayDeck(Card card) {
-        /**
+        /*
          * this method gets a card and add it to the 'play deck' of the player
          * @param: card: the card to add
          */
@@ -32,21 +32,21 @@ public class Player {
     }
 
     public void addWinDeck(Card card) {
-        /**
+        /*
          * this method gets a card and add it to the 'win deck' of the player
          */
         this.winDeck.addCard(card);
     }
 
     public Card drawCard() {
-        /**
+        /*
          * this method remove a card from the play deck and returns its value
          */
         return this.playDeck.removeTopCard();
     }
 
     public boolean outOfCards() {
-        /**
+        /*
          * this method returns if the player is out of cards or not
          */
         return (this.playDeck.isEmpty() && this.winDeck.isEmpty());
