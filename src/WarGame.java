@@ -34,6 +34,7 @@ public class WarGame {
         initializeGame();
         int roundCounter=1;
         do {
+            if (player2.outOfCards()) break;
             System.out.println("------------------------- Round number "+(roundCounter++)+" -------------------------");
 
         }while (round(false));
@@ -70,6 +71,7 @@ public class WarGame {
             }
             else return false;
         }
+        if(player2.outOfCards()) return false;
         return round(true);
     }
     private boolean dealCards(boolean isWar){
@@ -78,15 +80,15 @@ public class WarGame {
             case 1:
                 System.out.print(player1+" won");
                 while (!openDeckPlayer1.isEmpty()){
-                    player1.addWinDeck(openDeckPlayer1.removeTopCard());
                     player1.addWinDeck(openDeckPlayer2.removeTopCard());
+                    player1.addWinDeck(openDeckPlayer1.removeTopCard());
                 }
                 break;
             case -1:
                 System.out.print(player2+" won");
                 while (!openDeckPlayer1.isEmpty()) {
-                    player2.addWinDeck(openDeckPlayer1.removeTopCard());
                     player2.addWinDeck(openDeckPlayer2.removeTopCard());
+                    player2.addWinDeck(openDeckPlayer1.removeTopCard());
                 }
                 break;
             default:
